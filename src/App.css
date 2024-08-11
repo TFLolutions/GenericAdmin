@@ -1,0 +1,32 @@
+/* index.css */
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.app {
+  display: flex;
+}
+
+.main-content {
+  display: flex;
+  width: 100%;
+}
+
+.sidebar {
+  width: 240px;
+  background-color: #1c1c1c;
+  height: 100vh;
+  color: white;
+}
+
+.sidebar .MuiListItemIcon-root {
+  color: white;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 16px;
+}
