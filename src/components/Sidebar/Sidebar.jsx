@@ -11,31 +11,31 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <List>
-        <ListItem button component={Link} to="/overview">
+        <ListItem component={Link} to="/overview">
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="Overview" />
         </ListItem>
-        <ListItem button component={Link} to="/list">
+        <ListItem component={Link} to="/list">
           <ListItemIcon>
             <ListIcon />
           </ListItemIcon>
           <ListItemText primary="List Pages" />
         </ListItem>
-        <ListItem button component={Link} to="/edit">
+        <ListItem component={Link} to="/usercreator">
           <ListItemIcon>
             <EditIcon />
           </ListItemIcon>
-          <ListItemText primary="Edit Pages" />
+          <ListItemText primary="User creator" />
         </ListItem>
-        <ListItem button component={Link} to="/grid">
+        <ListItem component={Link} to="/grid">
           <ListItemIcon>
             <GridOnIcon />
           </ListItemIcon>
           <ListItemText primary="Grid Pages" />
         </ListItem>
-        <ListItem button component={Link} to="/documentation">
+        <ListItem component={Link} to="/documentation">
           <ListItemIcon>
             <BookIcon />
           </ListItemIcon>
