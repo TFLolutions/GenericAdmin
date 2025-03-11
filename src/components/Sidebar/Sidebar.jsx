@@ -1,46 +1,33 @@
 import React from 'react';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import { Link, useLocation } from 'react-router-dom';
 import ListIcon from '@mui/icons-material/List';
-import EditIcon from '@mui/icons-material/Edit';
-import BookIcon from '@mui/icons-material/Book';
-import GridOnIcon from '@mui/icons-material/GridOn';
-import { Link } from 'react-router-dom';
+import PeopleIcon from '@mui/icons-material/People';
+
+const routes = [
+  { path: '/getallusers', label: 'Users', icon: <PeopleIcon /> },
+  { path: '/products', label: 'Products', icon: <ListIcon /> },
+  { path: '/getallroles', label: 'Roles', icon: <ListIcon /> },
+  { path: '/get-tenant-users', label: 'Tenants', icon: <PeopleIcon /> },
+];
 
 const Sidebar = () => {
+  const location = useLocation();
+
   return (
-    <div className="sidebar">
+    <div className="w-64 h-screen bg-gray-800 text-white p-4">
       <List>
-        <ListItem component={Link} to="/overview">
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Overview" />
-        </ListItem>
-        <ListItem component={Link} to="/list">
-          <ListItemIcon>
-            <ListIcon />
-          </ListItemIcon>
-          <ListItemText primary="List Pages" />
-        </ListItem>
-        <ListItem component={Link} to="/usercreator">
-          <ListItemIcon>
-            <EditIcon />
-          </ListItemIcon>
-          <ListItemText primary="User creator" />
-        </ListItem>
-        <ListItem component={Link} to="/grid">
-          <ListItemIcon>
-            <GridOnIcon />
-          </ListItemIcon>
-          <ListItemText primary="Grid Pages" />
-        </ListItem>
-        <ListItem component={Link} to="/documentation">
-          <ListItemIcon>
-            <BookIcon />
-          </ListItemIcon>
-          <ListItemText primary="Documentation" />
-        </ListItem>
+        {routes.map((route, index) => (
+          <ListItem
+            component={Link}
+            to={route.path}
+            key={index}
+            className={`hover:bg-gray-700 rounded-lg p-2 ${location.pathname === route.path ? 'bg-gray-600' : ''}`}
+          >
+            <ListItemIcon className="text-white">{route.icon}</ListItemIcon>
+            <ListItemText primary={route.label} className="text-white" />
+          </ListItem>
+        ))}
       </List>
     </div>
   );
