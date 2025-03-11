@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Overview from './components/Overview/Overview';
-import Dashboard from './components/Dashboard/Dashboard';
 import Login from './pages/Login/Login';
 import UserCreator from './pages/UserCreator/UserCreator';
 import AuthenticatedLayout from './components/Common/AuthenticatedLayout/AuthenticatedLayout';

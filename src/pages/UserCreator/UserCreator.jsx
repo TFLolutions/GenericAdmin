@@ -35,6 +35,8 @@ const UserCreator = () => {
   };
 
   return (
+    <div className="bg-white rounded-lg shadow-lg p-6 max-w-6xl mx-auto">
+      <h2 className="text-2xl font-bold text-gray-800">Users Management</h2>
     <Box
       component="form"
       onSubmit={handleSubmit(onSubmit)}
@@ -93,6 +95,7 @@ const UserCreator = () => {
         Crear Usuario
       </Button>
     </Box>
+    </div>
   );
 };
 
