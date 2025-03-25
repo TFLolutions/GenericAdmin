@@ -308,10 +308,6 @@ const Login = () => {
           </div>
         </div>
         
-        {/* Footer */}
-        <div className="mt-6 text-center text-gray-500 text-sm">
-          <p>© 2025 Your Company. All rights reserved.</p>
-        </div>
       </div>
     </div>
   );

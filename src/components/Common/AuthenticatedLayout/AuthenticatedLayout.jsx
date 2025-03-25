@@ -5,7 +5,13 @@ import Sidebar from '../../Sidebar/Sidebar';
 
 const AuthenticatedLayout = () => {
   // Estado compartido para controlar la visibilidad del sidebar
+  const { isAuthenticated } = useAuth(); // Verificamos si el usuario está autenticado
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Si no está autenticado, redirigir a /login
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">

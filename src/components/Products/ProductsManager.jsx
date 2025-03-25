@@ -12,7 +12,7 @@ const ProductsManager = () => {
     if (editingProduct) {
       setEditingProduct({ ...editingProduct, [name]: value });
     } else {
-      setNewProduct({ ...newProduct, [name]: value });
+      setNewPoduct({ ...newProduct, [name]: value });
     }
   };
 
