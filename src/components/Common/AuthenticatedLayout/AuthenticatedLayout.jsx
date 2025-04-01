@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../../Navbar/Navbar';
 import Sidebar from '../../Sidebar/Sidebar';
+import { useAuth } from '../../Context/AuthContext';
 
 const AuthenticatedLayout = () => {
   // Estado compartido para controlar la visibilidad del sidebar

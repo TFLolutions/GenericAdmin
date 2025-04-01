@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../components/Context/AuthContext';
+
+const API_URL = 'https://hamburguesitapp-gshbgsh9frf7f9a6.brazilsouth-01.azurewebsites.net';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +15,7 @@ const Login = () => {
   const [recoverySuccess, setRecoverySuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
+  const { login } = useAuth();
   
   const navigate = useNavigate();
 
@@ -29,12 +33,13 @@ const Login = () => {
       // Add a slight delay to show loading animation
       setTimeout(async () => {
         try {
-          const response = await axios.post('https://localhost:5001/login', {
+          const response = await axios.post(`${API_URL}/login`, {
             email,
             password
           });
           
           console.log('Login successful:', response.data);
+          login();
           
           // Animate out before navigating
           setAnimateIn(false);
