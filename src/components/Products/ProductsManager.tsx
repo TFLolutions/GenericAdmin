@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // Define your API base URL
-const API_URL = 'https://hamburguesitapp-gshbgsh9frf7f9a6.brazilsouth-01.azurewebsites.net/api/backoffice/products';
+const API_URL = 'https://localhost:5001/api/backoffice/products';
 
 // Define the Product interface based on your JSON model
 interface Product {
@@ -290,177 +290,203 @@ const ProductsManager: React.FC = () => {
         </div>
       )}
 
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">
-              {editingProduct ? 'Edit Product' : 'Add New Product'}
-            </h3>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Product Name *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Enter product name"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  value={editingProduct ? editingProduct.name : newProduct.name}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Description
-                </label>
-                <textarea
-                  name="description"
-                  placeholder="Enter product description"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  value={editingProduct ? editingProduct.description : newProduct.description}
-                  onChange={handleInputChange}
-                  rows={3}
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Category
-                </label>
-                <input
-                  type="text"
-                  name="category"
-                  placeholder="Enter category"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  value={editingProduct ? editingProduct.category : newProduct.category}
-                  onChange={handleInputChange}
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Badge
-                </label>
-                <input
-                  type="text"
-                  name="badge"
-                  placeholder="e.g. New, Sale, Popular"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  value={editingProduct ? editingProduct.badge : newProduct.badge}
-                  onChange={handleInputChange}
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Image URL
-                </label>
-                <input
-                  type="text"
-                  name="imageUrl"
-                  placeholder="Enter image URL"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  value={editingProduct ? editingProduct.imageUrl : newProduct.imageUrl}
-                  onChange={handleInputChange}
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Price *
-                </label>
-                <input
-                  type="number"
-                  name="price"
-                  placeholder="0.00"
-                  step="0.01"
-                  min="0"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  value={editingProduct ? editingProduct.price : newProduct.price}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Stock
-                </label>
-                <input
-                  type="number"
-                  name="stock"
-                  placeholder="0"
-                  min="0"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  value={editingProduct ? editingProduct.stock : newProduct.stock}
-                  onChange={handleInputChange}
-                />
-              </div>
-              
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="isPopular"
-                  id="isPopular"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                  checked={editingProduct ? editingProduct.isPopular : newProduct.isPopular}
-                  onChange={handleCheckboxChange}
-                />
-                <label htmlFor="isPopular" className="ml-2 block text-sm text-gray-700">
-                  Popular Item
-                </label>
-              </div>
-              
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="active"
-                  id="active"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                  checked={editingProduct ? editingProduct.active : newProduct.active}
-                  onChange={handleCheckboxChange}
-                />
-                <label htmlFor="active" className="ml-2 block text-sm text-gray-700">
-                  Active
-                </label>
-              </div>
+     {/* Modal */}
+    {isModalOpen && (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-lg shadow-xl p-4 sm:p-6 w-full max-w-md sm:max-w-lg max-h-[90vh] overflow-y-auto relative">
+          {/* Close Button */}
+          <button
+            type="button"
+            className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition-colors duration-300"
+            onClick={() => setIsModalOpen(false)}
+            disabled={isLoading}
+            aria-label="Close modal"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+
+          <h3 className="text-lg font-bold text-gray-900 mb-4">
+            {editingProduct ? 'Edit Product' : 'Add New Product'}
+          </h3>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Product Name *</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter product name"
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                value={editingProduct ? editingProduct.name : newProduct.name}
+                onChange={handleInputChange}
+                required
+              />
             </div>
-            
-            <div className="mt-6 flex justify-end space-x-3">
-              <button
-                type="button"
-                className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-300"
-                onClick={() => setIsModalOpen(false)}
-                disabled={isLoading}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center"
-                onClick={editingProduct ? handleUpdate : handleCreate}
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Processing...
-                  </>
-                ) : (
-                  `${editingProduct ? 'Update' : 'Add'} Product`
-                )}
-              </button>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+              <textarea
+                name="description"
+                placeholder="Enter product description"
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                value={editingProduct ? editingProduct.description : newProduct.description}
+                onChange={handleInputChange}
+                rows={3}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+              <input
+                type="text"
+                name="category"
+                placeholder="Enter category"
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                value={editingProduct ? editingProduct.category : newProduct.category}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Badge</label>
+              <input
+                type="text"
+                name="badge"
+                placeholder="e.g. New, Sale, Popular"
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                value={editingProduct ? editingProduct.badge : newProduct.badge}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+              <input
+                type="text"
+                name="imageUrl"
+                placeholder="Enter image URL"
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                value={editingProduct ? editingProduct.imageUrl : newProduct.imageUrl}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Price *</label>
+              <input
+                type="number"
+                name="price"
+                placeholder="0.00"
+                step="0.01"
+                min="0"
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                value={editingProduct ? editingProduct.price : newProduct.price}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Stock</label>
+              <input
+                type="number"
+                name="stock"
+                placeholder="0"
+                min="0"
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                value={editingProduct ? editingProduct.stock : newProduct.stock}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                name="isPopular"
+                id="isPopular"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                checked={editingProduct ? editingProduct.isPopular : newProduct.isPopular}
+                onChange={handleCheckboxChange}
+              />
+              <label htmlFor="isPopular" className="ml-2 block text-sm text-gray-700">
+                Popular Item
+              </label>
+            </div>
+
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                name="active"
+                id="active"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                checked={editingProduct ? editingProduct.active : newProduct.active}
+                onChange={handleCheckboxChange}
+              />
+              <label htmlFor="active" className="ml-2 block text-sm text-gray-700">
+                Active
+              </label>
             </div>
           </div>
+
+          <div className="mt-6 flex justify-end space-x-3">
+            <button
+              type="button"
+              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-300"
+              onClick={() => setIsModalOpen(false)}
+              disabled={isLoading}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center"
+              onClick={editingProduct ? handleUpdate : handleCreate}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <svg
+                    className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
+                  </svg>
+                  Processing...
+                </>
+              ) : (
+                `${editingProduct ? 'Update' : 'Add'} Product`
+              )}
+            </button>
+          </div>
         </div>
-      )}
+      </div>
+    )}
     </div>
   );
 };

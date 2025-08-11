@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../components/Context/AuthContext';
 
-const API_URL = 'https://hamburguesitapp-gshbgsh9frf7f9a6.brazilsouth-01.azurewebsites.net';
+const API_URL = 'https://localhost:5001';
 
 const Login = () => {
   const [email, setEmail] = useState('');

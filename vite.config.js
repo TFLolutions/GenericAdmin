@@ -8,6 +8,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
+    server: {
+      port: 8327, // Opcional, podés cambiar el puerto si querés
+    },
     resolve: {
       alias: {
         '@': '/src',
